@@ -3,3 +3,7 @@
 //Manager => extends employee => getOfficeNumber(), getrole();
 //Engineer => extends employee => github, getGithub(), getrole();
 //Intern => extends employee => school, getSchool(), getrole();
+
+const inquirer = require("inquirer");
+const fs = require("fs");
+
