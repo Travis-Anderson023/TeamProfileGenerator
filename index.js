@@ -97,7 +97,7 @@ inquirer
             message: "What is Intern 1's name?",
             name: "intern1Name",
         },
-        {   
+        {
             type: "input",
             message: "What is Intern 1's id?",
             name: "intern1Id",
@@ -121,5 +121,121 @@ inquirer
         let intern1Name = new Intern(response.intern1Name, response.intern1Id, response.intern1Email, response.intern1School);
 
         let team = [manager, engineer1Name, engineer2Name, engineer3Name, intern1Name];
-        
+
+        let html =
+            `
+            <!DOCTYPE html>
+            <html lang="en">
+            
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Team</title>
+                <link rel="stylesheet" href="team.css">
+            </head>
+            
+            <body>
+                <nav>
+                    <h1>My Team</h1>
+                </nav>
+                <main>
+                    <!-- card -->
+                    <div class="card">
+                        <header>
+                            <h2>${team[0].getName()}</h2>
+                            <h3>${team[0].getRole()}</h3>
+                        </header>
+                        <section>
+                            <div>
+                                <p>ID: ${team[0].getId()}</p>
+                            </div>
+                            <div>
+                                <p>Email: ${team[0].getEmail()}</p>
+                            </div>
+                            <div>
+                                <p>Office Number: ${team[0].getOfficeNumber()}</p>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="card">
+                        <header>
+                            <h2>${team[1].getName()}</h2>
+                            <h3>${team[1].getRole()}</h3>
+                        </header>
+                        <section>
+                            <div>
+                                <p>ID: ${team[1].getId()}</p>
+                            </div>
+                            <div>
+                                <p>Email: ${team[1].getEmail()}</p>
+                            </div>
+                            <div>
+                                <p>Github: ${team[1].getGithubLink()}</p>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="card">
+                        <header>
+                            <h2>${team[2].getName()}</h2>
+                            <h3>${team[2].getRole()}</h3>
+                        </header>
+                        <section>
+                            <div>
+                                <p>ID: ${team[2].getId()}</p>
+                            </div>
+                            <div>
+                                <p>Email: ${team[2].getEmail()}</p>
+                            </div>
+                            <div>
+                                <p>Github: ${team[2].getGithubLink()}</p>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="card">
+                        <header>
+                            <h2>${team[3].getName()}</h2>
+                            <h3>${team[3].getRole()}</h3>
+                        </header>
+                        <section>
+                            <div>
+                                <p>ID: ${team[3].getId()}</p>
+                            </div>
+                            <div>
+                                <p>Email: ${team[3].getEmail()}</p>
+                            </div>
+                            <div>
+                                <p>Github: ${team[3].getGithubLink()}</p>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="card">
+                        <header>
+                            <h2>${team[4].getName()}</h2>
+                            <h3>${team[4].getRole()}</h3>
+                        </header>
+                        <section>
+                            <div>
+                                <p>ID: ${team[4].getId()}</p>
+                            </div>
+                            <div>
+                                <p>Email: ${team[4].getEmail()}</p>
+                            </div>
+                            <div>
+                                <p>Github: ${team[4].getSchool()}</p>
+                            </div>
+                        </section>
+                    </div>
+            
+                </main>
+            </body>
+            
+            </html>
+        `;
+        fs.writeFile("./dist/team.html", html, function (err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log("Success!");
+        });
     });

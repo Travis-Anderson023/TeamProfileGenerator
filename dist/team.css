@@ -1,0 +1,28 @@
+:root {
+    --main-color: lightcyan;
+    /* a comfy dark grey */
+    --secondary-color: #2f2f2f;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    height: 150px;
+    background-color: var(--secondary-color);
+    width: 100%;
+    text-align: center;
+    line-height: 100px;
+    color: var(--main-color);
+}
+
+main{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: var(--main-color);
+}
