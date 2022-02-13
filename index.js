@@ -13,8 +13,8 @@ const Intern = require("./lib/Intern");
 let teamMembers = [];
 let teamCards = [];
 
-let addTeamMember = async (i) => {
-    inquirer.prompt([
+let addTeamMember = async () => {
+    const answers = await inquirer.prompt([
         {
             type: "list",
             name: "role",
@@ -24,17 +24,17 @@ let addTeamMember = async (i) => {
         {
             type: "input",
             message: `What is the team members name?`,
-            name: `name${i}`,
+            name: `name`,
         },
         {
             type: "input",
             message: `What is the team member's id?`,
-            name: `id${i}`,
+            name: `id`,
         },
         {
             type: "input",
             message: `What is the team member's email?`,
-            name: `email${i}`,
+            name: `email`,
         },
         //if manager ask manager quetions
         {
@@ -45,7 +45,7 @@ let addTeamMember = async (i) => {
                     return true;
                 } return false;
             },
-            name: `officeNumber${i}`,
+            name: `officeNumber`,
         },
         //if engineer ask engineer questions
         {
@@ -56,7 +56,7 @@ let addTeamMember = async (i) => {
                     return true;
                 } return false;
             },
-            name: `github${i}`,
+            name: `github`,
         },
         //if intern ask intern questions
         {
@@ -67,31 +67,53 @@ let addTeamMember = async (i) => {
                     return true;
                 } return false;
             },
-            name: `school${i}`,
+            name: `school`,
         },
-    ]).then(({ role, name, id, email, officeNumber, github, school }) => {
-        switch (role) {
-            case "Manager":
-                let manager = new Manager(name, id, email, officeNumber);
-                teamCards.push(manager);
-                break;
-            case "Engineer":
-                let engineer = new Engineer(name, id, email, github);
-                teamCards.push(engineer);
-                break;
-            case "Intern":
-                let intern = new Intern(name, id, email, school);
-                teamCards.push(intern);
-                break;
-        }
-        return;
-    });
+    ])
+
+    const { role, name, id, email, officeNumber, github, school } = answers
+
+    switch (role) {
+        case "Manager":
+            let manager = new Manager(name, id, email, officeNumber);
+            teamMembers.push(manager);
+            break;
+        case "Engineer":
+            let engineer = new Engineer(name, id, email, github);
+            teamMembers.push(engineer);
+            break;
+        case "Intern":
+            let intern = new Intern(name, id, email, school);
+            teamMembers.push(intern);
+            break;
+    }
+    return;
 };
 
 
 let generateHTML = (teamMembers) => {
-    let html =
-        `
+    teamMembers.forEach(member => {
+        teamCards.push(`
+        <div class="card">
+            <header class="card-header">
+                <h1>${member.getName()}</h1>
+                <h2>${member.getRole()}</h2>
+            </header>
+            <div class="card-body">
+                <ul>
+                    <li>ID: ${member.getId()}</li>
+                    <li>Email: ${member.getEmail()}</li>
+                    ${member.getRole() === "Manager" ? `<li>Office Number: ${member.getOfficeNumber()}</li>` : ""}
+                    ${member.getRole() === "Engineer" ? `<li>Github: ${member.getGithub()}</li>` : ""}
+                    ${member.getRole() === "Intern" ? `<li>School: ${member.getSchool()}</li>` : ""}
+                </ul>
+            </div>
+        </div>
+        `)
+    });
+
+        let html =
+            `
             <!DOCTYPE html>
             <html lang="en">
             
@@ -109,37 +131,38 @@ let generateHTML = (teamMembers) => {
                 </nav>
                 <main>
                     <!-- card -->
-                    ${teamCards}
+                    ${teamCards.join("")}
                 </main>
             </body>
             
             </html>
         `;
-    fs.writeFile("./dist/team.html", html, function (err) {
-        if (err) {
-            return console.log(err);
-        }
-        console.log("Success!");
-    });
-};
+        fs.writeFile("./dist/team.html", html, function (err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log("Success!");
+        });
+    };
 
 
-let createTeamMembersArray = async () => {
-    const answers= await inquirer.prompt([
-        //would you like to add another teammember?
-        {
-            type: "list",
-            name: "addAnother",
-            message: "Would you like to add another team member?",
-            choices: ["Yes", "No"]
-        }
-    ])
+    let createTeamMembersArray = async () => {
+        const answers = await inquirer.prompt([
+            //would you like to add another teammember?
+            {
+                type: "list",
+                name: "addAnother",
+                message: "Would you like to add another team member?",
+                choices: ["Yes", "No"]
+            }
+        ])
 
         if (answers.addAnother === "Yes") {
-            addTeamMember(teamMembers.length + 1);
-            createTeamMembersArray();
+            await addTeamMember(teamMembers.length + 1);
+            await createTeamMembersArray();
         } else {
             generateHTML(teamMembers);
         }
-};
-createTeamMembersArray();
+    };
+    createTeamMembersArray();
+

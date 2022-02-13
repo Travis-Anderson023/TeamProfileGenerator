@@ -22,7 +22,44 @@ nav {
 
 main{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     height: 100%;
     width: 100%;
+    background-color: var(--main-color);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+    height: 350px;
+    background-color: var(--main-color);
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+    width: 90%;
+    height: 100px;
+    background-color: var(--main-color);
+    /* bottom border */
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    height: calc(100% - 150px);
     background-color: var(--main-color);
 }
