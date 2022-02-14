@@ -102,9 +102,9 @@ let generateHTML = (teamMembers) => {
             <div class="card-body">
                 <ul>
                     <li>ID: ${member.getId()}</li>
-                    <li>Email: ${member.getEmail()}</li>
+                    <li>Email: <a href="mailto:${member.getEmail}">${member.getEmail()}</a></li>
                     ${member.getRole() === "Manager" ? `<li>Office Number: ${member.getOfficeNumber()}</li>` : ""}
-                    ${member.getRole() === "Engineer" ? `<li>Github: ${member.getGithub()}</li>` : ""}
+                    ${member.getRole() === "Engineer" ? `<li>Github: <a href="${member.getGithubLink()}">${member.getGithub()}</a></li>` : ""}
                     ${member.getRole() === "Intern" ? `<li>School: ${member.getSchool()}</li>` : ""}
                 </ul>
             </div>
