@@ -104,7 +104,7 @@ let generateHTML = (teamMembers) => {
                     <li>ID: ${member.getId()}</li>
                     <li>Email: <a href="mailto:${member.getEmail}">${member.getEmail()}</a></li>
                     ${member.getRole() === "Manager" ? `<li>Office Number: ${member.getOfficeNumber()}</li>` : ""}
-                    ${member.getRole() === "Engineer" ? `<li>Github: <a href="${member.getGithubLink()}">${member.getGithub()}</a></li>` : ""}
+                    ${member.getRole() === "Engineer" ? `<li>Github: <a href="${member.getGithubLink()}" target="_blank">${member.getGithub()}</a></li>` : ""}
                     ${member.getRole() === "Intern" ? `<li>School: ${member.getSchool()}</li>` : ""}
                 </ul>
             </div>
